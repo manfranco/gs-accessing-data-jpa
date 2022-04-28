@@ -72,9 +72,6 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public void deleteById(Long id) throws Exception {
-        if(id == null){
-            throw new ParameterNotFoundException("No Id provided");
-        }
 
         Optional <Customer> customer = customerRepository.findById(id);
         if(customer.isPresent()){

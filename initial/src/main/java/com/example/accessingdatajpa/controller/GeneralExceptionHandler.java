@@ -20,7 +20,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ConstraintViolationException.class})
     protected ResponseEntity<Object> handleValidationException(ValidationException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(),
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler(value = {EntityNotFoundException.class, ParameterNotFoundException.class})
@@ -37,9 +37,8 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-
     /*
-    Given that Request specific exceptions should be handled with the personalized Ex, by default other errors will be defines as an internal server error.
+    Given that Request specific exceptions should be handled with the personalized Ex, by default other errors will be defined as an internal server error.
      */
     @ExceptionHandler(value = {Exception.class})
     protected ResponseEntity<Object> handleGeneralExceptions(RuntimeException ex, WebRequest request) {

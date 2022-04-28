@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,14 +39,14 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public ResponseEntity<Customer> save(@RequestBody CustomerDTO newCustomer) throws Exception {
+    public ResponseEntity<Customer> save(@Valid @RequestBody CustomerDTO newCustomer) throws Exception {
         Customer customer = customerMapper.customerDTOToCustomer(newCustomer);
         customer = customerService.save(customer);
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
     @DeleteMapping()
-    public ResponseEntity<Customer> deleteCustomer(@RequestBody CustomerDTO newCustomer) throws Exception {
+    public ResponseEntity<Customer> deleteCustomer(@Valid @RequestBody CustomerDTO newCustomer) throws Exception {
         Customer customer = customerMapper.customerDTOToCustomer(newCustomer);
         customerService.delete(customer);
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
